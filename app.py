@@ -1,3 +1,4 @@
+import os
 import sqlite3
 from functools import wraps
 
@@ -6,8 +7,11 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "change-this-secret-key"
-DATABASE = "users.db"
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "change-this-secret-key")
+DATABASE = os.environ.get(
+    "DATABASE_PATH",
+    "/tmp/users.db" if os.environ.get("VERCEL") else "users.db",
+)
 
 
 def get_db():
@@ -142,7 +146,9 @@ def logout():
     return redirect(url_for("home"))
 
 
+with app.app_context():
+    init_db()
+
+
 if __name__ == "__main__":
-    with app.app_context():
-        init_db()
     app.run(debug=True)

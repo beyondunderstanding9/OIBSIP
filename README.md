@@ -26,11 +26,28 @@ Then open:
 http://127.0.0.1:5000
 ```
 
+## Deploy to Vercel
+
+1. Push the project to GitHub.
+2. Go to Vercel and choose **Add New Project**.
+3. Import the `OIBSIP` GitHub repository.
+4. Keep the default project settings.
+5. Add this environment variable in Vercel:
+
+```text
+SECRET_KEY=use-a-long-random-secret-value
+```
+
+6. Click **Deploy**.
+
+This project uses SQLite so it is simple to understand. On Vercel, SQLite data is stored in temporary serverless storage, so registered users may reset after redeployments or cold starts. For a production version, connect the app to a hosted database such as PostgreSQL.
+
 ## Project Structure
 
 ```text
 LOGIN_AUTH/
 ├── app.py
+├── .python-version
 ├── requirements.txt
 ├── templates/
 │   ├── base.html
@@ -52,3 +69,20 @@ git branch -M main
 git remote add origin YOUR_GITHUB_REPOSITORY_URL
 git push -u origin main
 ```
+
+## How It Works
+
+`app.py` is the main Flask application. It defines the routes, connects to SQLite, hashes passwords, stores login sessions, and protects the dashboard page.
+
+- `get_db()` opens a SQLite database connection for the current request.
+- `init_db()` creates the `users` table if it does not already exist.
+- `/register` validates form data, hashes the password, and saves the user.
+- `/login` checks the username and password hash, then stores the user id in the session.
+- `/dashboard` uses `@login_required`, so only logged-in users can open it.
+- `/logout` clears the session and returns the user to the home page.
+
+## Interview Explanation
+
+I built a simple authentication system using Python Flask. My contribution was creating the complete flow: user registration, password hashing, login validation, session handling, logout, and a protected dashboard page. I also connected the project to GitHub and prepared it for deployment on Vercel.
+
+The main logic is that passwords are never stored directly. During registration, the password is converted into a secure hash using Werkzeug. During login, the entered password is compared with the saved hash. If it matches, the user id is stored in Flask's session. The secured dashboard checks that session before allowing access.
