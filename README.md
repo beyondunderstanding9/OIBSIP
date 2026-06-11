@@ -26,21 +26,11 @@ Then open:
 http://127.0.0.1:5000
 ```
 
-## Deploy to Vercel
+## Live Website
 
-1. Push the project to GitHub.
-2. Go to Vercel and choose **Add New Project**.
-3. Import the `OIBSIP` GitHub repository.
-4. Keep the default project settings.
-5. Add this environment variable in Vercel:
+The project is deployed on Vercel:
 
-```text
-SECRET_KEY=use-a-long-random-secret-value
-```
-
-6. Click **Deploy**.
-
-This project uses SQLite so it is simple to understand. On Vercel, SQLite data is stored in temporary serverless storage, so registered users may reset after redeployments or cold starts. For a production version, connect the app to a hosted database such as PostgreSQL.
+https://login-auth-jyo.vercel.app/
 
 ## Project Structure
 
