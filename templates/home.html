@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Login Auth{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div>
+        <p class="eyebrow">Python Flask Project</p>
+        <h1>Simple Login Authentication System</h1>
+        <p class="intro">Register an account, log in securely, and access a protected dashboard page.</p>
+        <div class="actions">
+            <a class="primary" href="{{ url_for('register') }}">Create Account</a>
+            <a class="secondary" href="{{ url_for('login') }}">Login</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

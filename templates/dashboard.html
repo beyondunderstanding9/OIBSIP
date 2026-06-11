@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Login Auth{% endblock %}
+
+{% block content %}
+<section class="dashboard">
+    <p class="eyebrow">Secured Page</p>
+    <h1>Hello, {{ g.user["username"] }}.</h1>
+    <p>You can see this page because you are logged in. If you log out, this route will redirect you back to the login page.</p>
+</section>
+{% endblock %}
